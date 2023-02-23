@@ -1,0 +1,181 @@
+Name:-Chandan Biswal
+Enrollment  no:- E20110192000310012
+Assignment no:-4
+Date:-08/02/2023
+Pc no:-53
+Faculty Name:- Meghavi mam
+Aim: Performing CRUD  on ListView along with validation and function
+class:-TY cs
+Div:-A
+subject:-Fundamentals of Mobile Computing
+
+package com.example.assg4_list_95;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity {
+    ListView lvCities;
+    public static int index;
+    EditText txtCity;
+    String city;
+    ArrayAdapter<String> adpCity;
+    ArrayList<String> al_cities = new ArrayList<>();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        lvCities = findViewById(R.id.lvCity);
+        txtCity = findViewById(R.id.txtCity);
+
+        adpCity = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,al_cities);
+        lvCities.setAdapter(adpCity);
+
+        lvCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                index = i;
+                makeToast("selected :"+adpCity.getItem(i));
+
+            }
+        });
+
+        lvCities.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                al_cities.remove(i);
+                adpCity.notifyDataSetChanged();
+                makeToast("Removed");
+                return false;
+
+            }
+        });
+
+    }
+    public void makeToast(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void addItem(View view) {
+        String city = "";
+        city = txtCity.getText().toString();
+        al_cities.add(city);
+        adpCity.notifyDataSetChanged();
+        makeToast("Added" +city);
+        txtCity.setText("");
+
+    }
+
+    public void editItem(View view) {
+        String city = "";
+        city = txtCity.getText().toString();
+        if(city == null||  city.length()==0){
+            makeToast("Enter city you want to  relocate to");
+        }
+        else{
+            al_cities.set(index,city);
+            adpCity.notifyDataSetChanged();
+            makeToast("Updated : " +city);
+            txtCity.setText("");
+        }
+    }
+}
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------
+
+
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#A39C9C"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="67dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20sp"
+                android:fontFamily="sans-serif-condensed-light"
+                android:gravity="center"
+                android:text="Add Items with List"
+                android:textColor="#403F3F"
+                android:textSize="34sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/txtCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Enter Value Here"/>
+
+            <ListView
+                android:id="@+id/lvCity"
+                android:layout_width="match_parent"
+                android:layout_height="399dp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/Add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:onClick="addItem"
+                android:text="Add" />
+
+            <Button
+                android:id="@+id/Edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="editItem"
+                android:text="Edit" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

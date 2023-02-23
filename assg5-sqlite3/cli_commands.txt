@@ -1,0 +1,26 @@
+sqlite3 ex1
+.open employee1.db
+create table tbl1(one text, two int);
+insert into tbl1 values('Hy',20);
+insert into tbl1 values('Goodmorning',30);
+select * from tbl1;
+            HEllo|10
+            Hy|20
+            Goodmorning|30    
+select one from tbl1;
+            HEllo
+            Hy
+            Goodmorning
+select one from tbl1 where one='Hy';
+            Hy
+select * from tbl1 where two='20';
+            Hy|20
+select * from tbl1 order by two desc;
+            Goodmorning|30
+            Hy|20
+            HEllo|10
+update tbl1 set two='Goodnight' where two='20';
+            HEllo|10
+            Hy|Goodnight
+            Goodmorning|30
+

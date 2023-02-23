@@ -1,0 +1,1733 @@
+#Python Programming - 2 Tkinter Project Assignments
+
+
+Assignment 1. Create GUI application design in python using various widgets of tkinter library. 
+
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#aim            : 15 widget
+#Assignment     : 1.1
+
+
+
+from tkinter import *
+class Checkbar(Frame):
+   def __init__(self, parent=None, picks=[], side=LEFT, anchor=W):
+      Frame.__init__(self, parent)
+      self.vars = []
+      for pick in picks:
+         var = IntVar()
+         chk = Checkbutton(self, text=pick, variable=var)
+         chk.pack(side=side, anchor=anchor, expand=YES)
+         self.vars.append(var)
+   def state(self):
+      return map((lambda var: var.get()), self.vars)
+if __name__ == '__main__':
+   root = Tk()
+   lng = Checkbar(root, ['Python', 'Ruby', 'Perl', 'C++'])
+   tgl = Checkbar(root, ['English','German'])
+   lng.pack(side=TOP,  fill=X)
+   tgl.pack(side=LEFT)
+   lng.config(relief=GROOVE, bd=2)
+
+   def allstates():
+      print(list(lng.state()), list(tgl.state()))
+   Button(root, text='Quit', command=root.quit).pack(side=RIGHT)
+   Button(root, text='Peek', command=allstates).pack(side=RIGHT)
+   root.mainloop()
+
+   ----------------------------------------------------------------------------------
+
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.2
+
+from tkinter import *
+master = Tk()
+
+def var_states():
+   print("male: %d,\nfemale: %d" % (var1.get(), var2.get()))
+
+Label(master, text="Your sex:").grid(row=0, sticky=W)
+var1 = IntVar()
+Checkbutton(master, text="male", variable=var1).grid(row=1, sticky=W)
+var2 = IntVar()
+Checkbutton(master, text="female", variable=var2).grid(row=2, sticky=W)
+Button(master, text='Quit', command=master.quit).grid(row=3, sticky=W, pady=4)
+Button(master, text='Show', command=var_states).grid(row=4, sticky=W, pady=4)
+mainloop()
+
+-------------------------------------------------------------------------
+
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.3
+
+from tkinter import *
+class App:
+  def __init__(self, master):
+    frame = Frame(master)
+    frame.pack()
+    self.button = Button(frame,
+                         text="QUIT", fg="red",
+                         command=quit)
+    self.button.pack(side=LEFT)
+    self.slogan = Button(frame,
+                         text="Hello",
+                         command=self.write_slogan)
+    self.slogan.pack(side=LEFT)
+  def write_slogan(self):
+    print("tkinter is easy to use hello myself chandan..!")
+
+root = Tk()
+app = App(root)
+root.mainloop()
+--------------------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.4
+
+from tkinter import *
+from math import *
+def evaluate(event):
+    res.configure(text = "Result: " + str(eval(entry.get())))
+w = Tk()
+Label(w, text="Your Expression:").pack()
+entry = Entry(w)
+entry.bind("<Return>", evaluate)
+entry.pack()
+res = Label(w)
+res.pack()
+w.mainloop()
+---------------------------------------------------------------------
+
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.5
+
+from tkinter import *
+
+canvas_width = 300
+canvas_height =80
+
+master = Tk()
+canvas = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
+canvas.pack()
+
+bitmaps = ["error", "gray75", "gray50", "gray25", "gray12", "hourglass", "info", "questhead", "question", "warning"]
+nsteps = len(bitmaps)
+step_x = int(canvas_width / nsteps)
+
+for i in range(0, nsteps):
+   canvas.create_bitmap((i+1)*step_x - step_x/2,50, bitmap=bitmaps[i])
+
+mainloop()
+---------------------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.6
+
+from tkinter import *
+
+def checkered(canvas, line_distance):
+   # vertical lines at an interval of "line_distance" pixel
+   for x in range(line_distance,canvas_width,line_distance):
+      canvas.create_line(x, 0, x, canvas_height, fill="#476042")
+   # horizontal lines at an interval of "line_distance" pixel
+   for y in range(line_distance,canvas_height,line_distance):
+      canvas.create_line(0, y, canvas_width, y, fill="#476042")
+
+
+master = Tk()
+canvas_width = 300
+canvas_height = 300
+w = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
+w.pack()
+
+checkered(w,10)
+
+mainloop()
+-----------------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.7
+
+from tkinter import *
+
+canvas_width = 1000
+canvas_height =600
+
+master = Tk()
+
+canvas = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
+canvas.pack()
+
+img = PhotoImage(file="test.gif")
+canvas.create_image(20,20, anchor=NW, image=img)
+
+mainloop()
+---------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.8
+
+from tkinter import *
+
+canvas_width = 500
+canvas_height = 500
+
+colours = ("#476042", "yellow")
+box=[]
+
+for ratio in ( 0.2, 0.35 ):
+   box.append( (canvas_width * ratio,
+                canvas_height * ratio,
+                canvas_width * (1 - ratio),
+                canvas_height * (1 - ratio) ) )
+
+master = Tk()
+
+w = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
+w.pack()
+
+for i in range(2):
+   w.create_rectangle(box[i][0], box[i][1],box[i][2],box[i][3], fill=colours[i])
+
+w.create_line(0, 0,                 # origin of canvas
+              box[0][0], box[0][1], # coordinates of left upper corner of the box[0]
+              fill=colours[0],
+              width=3)
+w.create_line(0, canvas_height,     # lower left corner of canvas
+              box[0][0], box[0][3], # lower left corner of box[0]
+              fill=colours[0],
+              width=3)
+w.create_line(box[0][2],box[0][1],  # right upper corner of box[0]
+              canvas_width, 0,      # right upper corner of canvas
+              fill=colours[0],
+              width=3)
+w.create_line(box[0][2], box[0][3], # lower right corner pf box[0]
+              canvas_width, canvas_height, # lower right corner of canvas
+              fill=colours[0], width=3)
+
+w.create_text(canvas_width / 2,
+              canvas_height / 2,
+              text="Python")
+mainloop()
+---------------------------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.9
+
+
+from tkinter import *
+master = Tk()
+
+canvas_width = 800
+canvas_height = 400
+w = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
+w.pack()
+
+y = int(canvas_height / 2)
+w.create_line(0, y, canvas_width, y, fill="#476042")
+
+
+mainloop()
+----------------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.10
+
+from tkinter import *
+
+canvas_width = 500
+canvas_height = 500
+
+
+def paint(event):
+    python_green = "#476042"
+    x1, y1 = (event.x - 1), (event.y - 1)
+    x2, y2 = (event.x + 1), (event.y + 1)
+    w.create_oval(x1, y1, x2, y2, fill=python_green)
+
+
+master = Tk()
+master.title("Painting using Ovals")
+w = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
+w.pack(expand=YES, fill=BOTH)
+w.bind("<B1-Motion>", paint)
+
+message = Label(master, text="Press and Drag the mouse to draw")
+message.pack(side=BOTTOM)
+
+mainloop()
+----------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.11
+
+from tkinter import *
+
+def circle(canvas,x,y, r):
+   id = canvas.create_oval(x-r,y-r,x+r,y+r)
+   return id
+
+canvas_width = 190
+canvas_height =150
+
+master = Tk()
+
+w = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
+w.pack()
+
+w.create_oval(50,50,150,100)
+circle(w, 30, 30, 5)
+
+mainloop()
+-----------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.12
+
+from tkinter import *
+
+canvas_width = 200
+canvas_height =200
+python_green = "#476042"
+
+master = Tk()
+
+w = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
+w.pack()
+
+points = [0,0,canvas_width,canvas_height/2, 0, canvas_height]
+w.create_polygon(points, outline=python_green,
+            fill='yellow', width=3)
+
+mainloop()
+----------------------------------------------------------
+
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.13
+
+from tkinter import *
+
+master = Tk()
+
+w = Canvas(master, width=200, height=100)
+w.pack()
+
+w.create_rectangle(50, 20, 150, 80, fill="#476042")
+w.create_rectangle(65, 35, 135, 65, fill="yellow")
+w.create_line(0, 0, 50, 20, fill="#476042", width=3)
+w.create_line(0, 100, 50, 80, fill="#476042", width=3)
+w.create_line(150,20, 200, 0, fill="#476042", width=3)
+w.create_line(150, 80, 200, 100, fill="#476042", width=3)
+
+mainloop()
+------------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.14
+
+
+from tkinter import *
+
+canvas_width = 400
+canvas_height =400
+python_green = "#476042"
+
+def polygon_star(canvas, x,y,p,t, outline=python_green, fill='yellow', width = 1):
+   points = []
+   for i in (1,-1):
+      points.extend((x,	      y + i*p))
+      points.extend((x + i*t, y + i*t))
+      points.extend((x + i*p, y))
+      points.extend((x + i*t, y - i * t))
+
+   print(points)
+
+   canvas.create_polygon(points, outline=outline,
+                         fill=fill, width=width)
+
+master = Tk()
+
+w = Canvas(master,
+           width=canvas_width,
+           height=canvas_height)
+w.pack()
+
+p = 50
+t = 15
+
+nsteps = 10
+step_x = int(canvas_width / nsteps)
+step_y = int(canvas_height / nsteps)
+
+for i in range(1, nsteps):
+   polygon_star(w,i*step_x,i*step_y,p,t,outline='red',fill='gold', width=3)
+   polygon_star(w,i*step_x,canvas_height - i*step_y,p,t,outline='red',fill='gold', width=3)
+
+mainloop()
+---------------------------------------------------------------------
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 1.15
+
+from tkinter import *
+master = Tk()
+var1 = IntVar()
+Checkbutton(master, text="male", variable=var1).grid(row=0, sticky=W)
+var2 = IntVar()
+Checkbutton(master, text="female", variable=var2).grid(row=1, sticky=W)
+mainloop()
+---------------------------------------------------------------------------
+
+#Assignment : 1.16
+
+import random
+
+
+def fac(n):
+    if n == 0:
+        return 1
+    else:
+        return (fac(n - 1) * n)
+
+
+def permutations(items):
+    n = len(items)
+    if n == 0:
+        yield []
+    else:
+        for i in range(len(items)):
+            for cc in permutations(items[:i] + items[i + 1:]):
+                yield [items[i]] + cc
+
+
+def k_permutations(items, n):
+    if n == 0:
+        yield []
+    else:
+        for i in range(len(items)):
+            for ss in k_permutations(items, n - 1):
+                if (not items[i] in ss):
+                    yield [items[i]] + ss
+
+
+def random_permutation(list):
+    length = len(list);
+    max = fac(length);
+    index = random.randrange(0, max)
+    i = 0
+    for p in permutations(list):
+        if i == index:
+            return p
+        i += 1
+
+
+def all_colours(colours, positions):
+    colours = random_permutation(colours)
+    for s in k_permutations(colours, positions):
+        yield (s)
+
+-----------------------------------------------------------
+
+#Assignment : 1.17
+
+import tkinter as tk
+
+counter = 0
+
+
+def counter_label(label):
+    counter = 0
+
+    def count():
+        global counter
+        counter += 1
+        label.config(text=str(counter))
+        label.after(1000, count)
+
+    count()
+
+
+root = tk.Tk()
+root.title("Counting Seconds")
+label = tk.Label(root, fg="dark green")
+label.pack()
+counter_label(label)
+button = tk.Button(root, text='Stop', width=25, command=root.destroy)
+button.pack()
+root.mainloop()
+--------------------------------------------------------
+
+#Assignment : 1.18
+
+from tkinter import *
+
+def show_entry_fields():
+   print("First Name: %s\nLast Name: %s" % (e1.get(), e2.get()))
+   e1.delete(0,END)
+   e2.delete(0,END)
+
+master = Tk()
+Label(master, text="First Name").grid(row=0)
+Label(master, text="Last Name").grid(row=1)
+
+e1 = Entry(master)
+e2 = Entry(master)
+e1.insert(10,"Miller")
+e2.insert(10,"Jill")
+
+e1.grid(row=0, column=1)
+e2.grid(row=1, column=1)
+
+Button(master, text='Quit', command=master.quit).grid(row=3, column=0, sticky=W, pady=4)
+Button(master, text='Show', command=show_entry_fields).grid(row=3, column=1, sticky=W, pady=4)
+
+mainloop( )
+-----------------------------------------------------------------------
+
+#Assignment : 1.19
+
+from tkinter import *
+
+def motion(event):
+  print("Mouse position: (%s %s)" % (event.x, event.y))
+  return
+
+master = Tk()
+whatever_you_do = "Whatever you do will be insignificant, but it is very important that you do it.\n(Mahatma Gandhi)"
+msg = Message(master, text = whatever_you_do)
+msg.config(bg='lightgreen', font=('times', 24, 'italic'))
+msg.bind('<Motion>',motion)
+msg.pack()
+mainloop()
+-----------------------------------------------------------------
+
+#Assignment : 1.20
+
+
+from tkinter import *
+def hello(event):
+    print("Single Click, Button-l")
+def quit(event):
+    print("Double Click, so let's stop")
+    import sys; sys.exit()
+
+widget = Button(None, text='Mouse Clicks')
+widget.pack()
+widget.bind('<Button-1>', hello)
+widget.bind('<Double-1>', quit)
+widget.mainloop()
+-----------------------------------------------------------------------------------------
+#Assignment : 1.21
+
+from tkinter import *
+# if you are working under Python 3, comment the previous line and comment out the following line
+#from tkinter import *
+
+root = Tk()
+
+w = Label(root, text="Hello Tkinter!")
+w.pack()
+
+root.mainloop()
+----------------------------------------------------------------
+
+#Assignment : 1.22
+
+from tkinter import *
+fields = ('Annual Rate', 'Number of Payments', 'Loan Principle', 'Monthly Payment', 'Remaining Loan')
+
+def monthly_payment(entries):
+   # period rate:
+   r = (float(entries['Annual Rate'].get()) / 100) / 12
+   print("r", r)
+   # principal loan:
+   loan = float(entries['Loan Principle'].get())
+   n =  float(entries['Number of Payments'].get())
+   remaining_loan = float(entries['Remaining Loan'].get())
+   q = (1 + r)** n
+   monthly = r * ( (q * loan - remaining_loan) / ( q - 1 ))
+   monthly = ("%8.2f" % monthly).strip()
+   entries['Monthly Payment'].delete(0,END)
+   entries['Monthly Payment'].insert(0, monthly )
+   print("Monthly Payment: %f" % float(monthly))
+
+def final_balance(entries):
+   # period rate:
+   r = (float(entries['Annual Rate'].get()) / 100) / 12
+   print("r", r)
+   # principal loan:
+   loan = float(entries['Loan Principle'].get())
+   n =  float(entries['Number of Payments'].get())
+   q = (1 + r)** n
+   monthly = float(entries['Monthly Payment'].get())
+   q = (1 + r)** n
+   remaining = q * loan  - ( (q - 1) / r) * monthly
+   remaining = ("%8.2f" % remaining).strip()
+   entries['Remaining Loan'].delete(0,END)
+   entries['Remaining Loan'].insert(0, remaining )
+   print("Remaining Loan: %f" % float(remaining))
+
+def makeform(root, fields):
+   entries = {}
+   for field in fields:
+      row = Frame(root)
+      lab = Label(row, width=22, text=field+": ", anchor='w')
+      ent = Entry(row)
+      ent.insert(0,"0")
+      row.pack(side=TOP, fill=X, padx=5, pady=5)
+      lab.pack(side=LEFT)
+      ent.pack(side=RIGHT, expand=YES, fill=X)
+      entries[field] = ent
+   return entries
+
+if __name__ == '__main__':
+   root = Tk()
+   ents = makeform(root, fields)
+   #root.bind('', (lambda event, e=ents: fetch(e)))
+   b1 = Button(root, text='Final Balance',
+          command=(lambda e=ents: final_balance(e)))
+   b1.pack(side=LEFT, padx=5, pady=5)
+   b2 = Button(root, text='Monthly Payment',
+          command=(lambda e=ents: monthly_payment(e)))
+   b2.pack(side=LEFT, padx=5, pady=5)
+   b3 = Button(root, text='Quit', command=root.quit)
+   b3.pack(side=LEFT, padx=5, pady=5)
+   root.mainloop()
+----------------------------------------------------------------
+
+#Assignment : 1.23
+
+
+from tkinter import *
+
+root = Tk()
+
+w = Label(root, text="Red Sun", bg="red", fg="white")
+w.pack(fill=X)
+w = Label(root, text="Green Grass", bg="green", fg="black")
+w.pack(fill=X)
+w = Label(root, text="Blue Sky", bg="blue", fg="white")
+w.pack(fill=X)
+
+mainloop()
+----------------------------------------------------------------
+
+#Assignment : 1.24
+
+import tkinter as tk
+import random
+
+root = tk.Tk()
+# width x height + x_offset + y_offset:
+root.geometry("170x200+30+30")
+
+languages = ['Python', 'Perl', 'C++', 'Java', 'Tcl/Tk']
+labels = range(5)
+for i in range(5):
+    ct = [random.randrange(256) for x in range(3)]
+    brightness = int(round(0.299 * ct[0] + 0.587 * ct[1] + 0.114 * ct[2]))
+    ct_hex = "%02x%02x%02x" % tuple(ct)
+    bg_colour = '#' + "".join(ct_hex)
+    l = tk.Label(root,
+                 text=languages[i],
+                 fg='White' if brightness < 120 else 'Black',
+                 bg=bg_colour)
+    l.place(x=20, y=30 + i * 30, width=120, height=25)
+
+root.mainloop()
+----------------------------------------------------------------\
+
+#Assignment : 1.25
+
+from tkinter import *
+
+colours = ['red','green','orange','white','yellow','blue']
+
+r = 0
+for c in colours:
+    Label(text=c, relief=RIDGE,width=15).grid(row=r,column=0)
+    Entry(bg=c, relief=SUNKEN,width=10).grid(row=r,column=1)
+    r = r + 1
+
+mainloop()
+----------------------------------------------------------------
+
+#Assignment : 1.26
+
+from tkinter import *
+
+root = Tk()
+
+Label(root, text="Red Sun", bg="red", fg="white").pack()
+Label(root, text="Green Grass", bg="green", fg="black").pack()
+Label(root, text="Blue Sky", bg="blue", fg="white").pack()
+
+mainloop()
+----------------------------------------------------------------------
+
+#Assignment : 1.27
+
+from tkinter import *
+fields = 'Last Name', 'First Name', 'Job', 'Country'
+
+def fetch(entries):
+   for entry in entries:
+      field = entry[0]
+      text  = entry[1].get()
+      print('%s: "%s"' % (field, text))
+
+def makeform(root, fields):
+   entries = []
+   for field in fields:
+      row = Frame(root)
+      lab = Label(row, width=15, text=field, anchor='w')
+      ent = Entry(row)
+      row.pack(side=TOP, fill=X, padx=5, pady=5)
+      lab.pack(side=LEFT)
+      ent.pack(side=RIGHT, expand=YES, fill=X)
+      entries.append((field, ent))
+   return entries
+
+if __name__ == '__main__':
+   root = Tk()
+   ents = makeform(root, fields)
+   root.bind('<Return>', (lambda event, e=ents: fetch(e)))
+   b1 = Button(root, text='Show',
+          command=(lambda e=ents: fetch(e)))
+   b1.pack(side=LEFT, padx=5, pady=5)
+   b2 = Button(root, text='Quit', command=root.quit)
+   b2.pack(side=LEFT, padx=5, pady=5)
+   root.mainloop()
+
+
+--------------------------------------------------------------------
+#Assignment : 1.28
+
+
+from tkinter import *
+
+root = Tk()
+
+v = IntVar()
+v.set(1)  # initializing the choice, i.e. Python
+
+languages = [
+    ("Python",1),
+    ("Perl",2),
+    ("Java",3),
+    ("C++",4),
+    ("C",5)
+]
+
+def ShowChoice():
+    print (v.get)
+
+Label(root,
+      text="""Choose your favourite
+programming language:""",
+      justify = LEFT,
+      padx = 20).pack()
+
+for txt, val in languages:
+    Radiobutton(root,
+                text=txt,
+                padx = 20,
+                variable=v,
+                command=ShowChoice,
+                value=val).pack(anchor=W)
+
+mainloop()
+---------------------------------------------------------------------
+
+#Assignment : 1.29
+
+from tkinter import *
+master = Tk()
+whatever_you_do = "Whatever you do will be insignificant, but it is very important that you do it.\n(Mahatma Gandhi)"
+msg = Message(master, text = whatever_you_do)
+msg.config(bg='lightgreen', font=('times', 24, 'italic'))
+msg.pack( )
+mainloop( )
+----------------------------------------------------------------------
+
+#Assignment : 1.30
+
+from tkinter import *
+
+root = Tk()
+
+v = IntVar()
+
+Label(root,
+      text="""Choose a
+programming language:""",
+      justify = LEFT,
+      padx = 20).pack()
+Radiobutton(root,
+            text="Python",
+            padx = 20,
+            variable=v,
+            value=1).pack(anchor=W)
+Radiobutton(root,
+            text="Perl",
+            padx = 20,
+            variable=v,
+            value=2).pack(anchor=W)
+
+mainloop()
+---------------------------------------------------------------------
+
+#Assignment : 1.31
+
+from tkinter import *
+
+def show_values():
+    print (w1.get(), w2.get())
+
+master = Tk()
+w1 = Scale(master, from_=0, to=42, tickinterval=8)
+w1.set(19)
+w1.pack()
+w2 = Scale(master, from_=0, to=200,tickinterval=10, orient=HORIZONTAL)
+w2.set(23)
+w2.pack()
+Button(master, text='Show', command=show_values).pack()
+
+mainloop()
+----------------------------------------------------------------------
+=================================================================================================
+
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 2
+#Aim            : Create Registration and Login form in tkinter and allow user to login with otp/qr code/static userid password. 
+
+
+#Register page
+
+from tkinter import *
+from functools import partial
+from tkinter import messagebox
+
+
+
+def validateLogin(username, password, usermail):
+	print("username entered :", username.get())
+	print("password entered :", password.get())
+	print("mail entered :", usermail.get())
+	print("mobile entered :", mobile.get())
+	
+
+
+	return
+
+def exit_app():
+    confex = messagebox.askquestion(
+        'Quit Confirmation', 'are you sue you want to quit?')
+    if confex.upper() == "YES":				
+        tkWindow.destroy()
+    else:
+        pass
+
+
+	
+#window
+tkWindow = Tk()  
+tkWindow.geometry('400x150')  
+tkWindow.title('Tkinter Reg Form by - chandan')
+
+#username label and text entry box
+usernameLabel = Label(tkWindow, text="User Name").grid(row=0, column=0)
+username = StringVar()
+usernameEntry = Entry(tkWindow, textvariable=username).grid(row=0, column=1)  
+
+
+#usermail label and text entry box
+useremailLabel = Label(tkWindow, text="User Email").grid(row=1, column=0)
+usermail = StringVar()
+usermailEntry = Entry(tkWindow, textvariable=usermail).grid(row=1, column=1)  
+
+
+#password label and password entry box
+passwordLabel = Label(tkWindow,text="Password").grid(row=2, column=0)  
+password = StringVar()
+passwordEntry = Entry(tkWindow, textvariable=password, show='*').grid(row=2, column=1)  
+
+validateLogin = partial(validateLogin, username, password, usermail)
+
+#mobile label and text entry box
+usermobile = Label(tkWindow, text="User mobile").grid(row=3, column=0)
+mobile = StringVar()
+usermobileEntry = Entry(tkWindow, textvariable=mobile).grid(row=3, column=1)  
+
+#Register button
+loginButton = Button(tkWindow, text="Register", command=lambda:[validateLogin(), exit_app()]).grid(row=4, column=0)  
+
+tkWindow.mainloop()
+# root.mainloop()
+----------------------------------------------------------------------
+#Registration page () ---> login page 
+
+
+from tkinter import *
+
+window = Tk()
+window.title("ItsExceptional")
+window.geometry("300x200")
+window.config(background = "black", pady=10)
+
+
+lb1 = Label(window, text = "Login Form", bg = "black", fg="white", font=20)
+lb1.place(x=110, y=5)
+
+lb2_u = Label(window, text = "Username - ", bg="black", fg="white")
+lb2_u2 = Entry(window)
+lb2_u.place(x=10, y=40)
+lb2_u2.place(x=110, y=40)
+
+
+lb2_p = Label(window, text = "Password - ", bg="black", fg="white")
+lb2_p2 = Entry(window)
+lb2_p.place(x=10, y=80)
+lb2_p2.place(x=110,y=80)
+
+
+display = Label(window, text="Access : ", bg="black")
+
+bt = Button(window, text="Login")
+
+
+
+def dis():
+    user = lb2_u2.get()
+    pas = lb2_p2.get()
+    filo = open('register.txt').readlines()
+    for lino in filo:
+        if user == lino.split()[2]:
+            display.config(bg="green",fg="white", text="Access :Granted")
+            break
+        else:
+            display.config(bg="red",fg="white", text="Access :Denied")
+
+bt.config(command=dis)
+bt.place(x=110, y=120)
+
+
+def newsign():
+    sign=Tk()
+    sign.title("SignUp")
+    sign.geometry("300x200")
+    sign.config(background = "black", pady=10)
+
+    lbs = Label(sign, text = "SignUp", bg = "black", fg="white", font=20)
+    lbs.place(x=110, y=5)
+
+    lb2_s = Label(sign, text = "Username - ", bg="black", fg="white")
+    lb2_s2 = Entry(sign)
+    lb2_s.place(x=10, y=40)
+    lb2_s2.place(x=110, y=40)
+
+
+    lb2_ps = Label(sign, text = "Password - ", bg="black", fg="white")
+    lb2_ps2 = Entry(sign)
+    lb2_ps.place(x=10, y=80)
+    lb2_ps2.place(x=110,y=80)
+
+    dis = Label(sign, text ="", bg="black", fg="white")
+    
+    def reg():
+        username = lb2_s2.get()
+        pas = lb2_ps2.get()
+        
+        file =  open("register.txt","a")
+        fiIn = open('register.txt').readlines()
+
+
+        l=[] 
+        for lines in fiIn:
+            l.append(lines.split()[2])
+
+        if username in l:
+            print("Exists")
+            dis.config(text="User Exists", bg="green")
+
+        else:
+            print("not Exists")
+            file.write("Username = "+username+"\n")
+            file.write("Password = "+pas+"\n")
+            file.close()
+            dis.config(text = "Registered", bg="green")
+        
+    bts = Button(sign, text="Register", command=reg)
+    bts.place(x=110, y=120)
+    dis.place(x=100, y=150)
+
+    
+    window.destroy()
+
+bt2 = Button(window, text="SignUp", command=newsign)
+bt2.place(x=170, y=120)
+
+
+display.place(x=110, y=155)
+
+window.mainloop()
+
+
+
+
+---------------------------------------------------------------------
+
+#login form
+
+from tkinter import *
+from functools import partial
+
+def validateLogin(username, password):
+	print("username entered :", username.get())
+	print("password entered :", password.get())
+	return
+
+#window
+tkWindow = Tk()  
+tkWindow.geometry('400x150')  
+tkWindow.title('Tkinter Login Form by - chandan')
+
+#username label and text entry box
+usernameLabel = Label(tkWindow, text="User Name").grid(row=0, column=0)
+username = StringVar()
+usernameEntry = Entry(tkWindow, textvariable=username).grid(row=0, column=1)  
+
+#password label and password entry box
+passwordLabel = Label(tkWindow,text="Password").grid(row=1, column=0)  
+password = StringVar()
+passwordEntry = Entry(tkWindow, textvariable=password, show='*').grid(row=1, column=1)  
+
+validateLogin = partial(validateLogin, username, password)
+
+#login button
+loginButton = Button(tkWindow, text="Login", command=validateLogin).grid(row=4, column=0)  
+
+tkWindow.mainloop()
+
+----------------------------------------------------------------------
+
+#login page  static
+
+from tkinter import *
+#defining login function
+def login():
+    #getting form data
+    uname=username.get()
+    pwd=password.get()
+    #applying empty validation
+    if uname=='' or pwd=='':
+        message.set("fill the empty field!!!")
+        
+    else:
+      if uname=="abc@gmail.com" and pwd=="abc123":
+          login_screen.destroy()
+          import hello
+
+       
+      else:
+       message.set("Wrong username or password!!!")
+#defining loginform function
+def Loginform():
+    global login_screen
+    login_screen = Tk()
+    #Setting title of screen
+    login_screen.title("Login Form")
+    #setting height and width of screen
+    login_screen.geometry("300x250")
+    #declaring variable
+    global  message;
+    global username
+    global password
+    username = StringVar()
+    password = StringVar()
+    message=StringVar()
+    #Creating layout of login form
+    Label(login_screen,width="300", text="Please enter details below", bg="orange",fg="white").pack()
+    #Username Label
+    Label(login_screen, text="Username * ").place(x=20,y=40)
+    #Username textbox
+    Entry(login_screen, textvariable=username).place(x=90,y=42)
+    #Password Label
+    Label(login_screen, text="Password * ").place(x=20,y=80)
+    #Password textbox
+    Entry(login_screen, textvariable=password ,show="*").place(x=90,y=82)
+    #Label for displaying login status[success/failed]
+    Label(login_screen, text="",textvariable=message).place(x=95,y=100)
+    #Login button
+    Button(login_screen, text="Login", width=10, height=1, bg="orange",command=login).place(x=105,y=130)
+    login_screen.mainloop()
+#calling function Loginform
+Loginform()
+
+----------------------------------
+
+#hello page where login page to hello page after login
+
+from tkinter import *
+
+ws = Tk()
+ws.geometry('400x300')
+ws.title('Chandan')
+ws['bg']='#5d8a82'
+
+f = ("Times bold", 14)
+
+    
+Label(
+    ws,
+    text="Dashboard",
+    padx=20,
+    pady=20,
+    bg='#5d8a82',
+    font=f
+).pack(expand=True, fill=BOTH)
+
+
+
+ws.mainloop()
+
+---------------------------------------------------------------------
+# otp
+
+from tkinter import *
+import tkinter.messagebox as tsmg
+import requests
+import random
+import json
+
+root=Tk()
+
+rand=random.randint(1,999999)
+
+msg=f"Your One Time Password(OTP) is {rand}"
+
+def nextPage():
+    root.destroy()
+    import index
+
+def sms_send():
+    tsmg.showerror("Info",f"Your otp is {rand}")
+    # return rand;
+    # e5.delete(0,"end")
+    # e5.set("Text set by button")
+
+
+def send():
+    a=num.get()
+    if(a==""):
+        tsmg.showerror("Error","Enter Your Mobile Number")
+    elif (len(a)<10):
+        tsmg.showerror("Error","Invalid Mobile Number")
+        num.set("")
+    else:
+        b=tsmg.askyesno("Info",f"Your Number is {a}")
+        if(b==True):
+            sms_send()
+        else:
+            num.set("")
+
+def check():
+    c=otp.get()
+    if(c==""):
+        tsmg.showerror("Error","Enter OTP")
+    else:
+        if(str(rand)==c):
+            # tsmg.showinfo("Info","Successful")
+            nextPage()
+        else:
+            tsmg.showerror("Error","Invalid OTP")
+            num.set("")
+            otp.set("")
+
+
+root.geometry("500x500")
+root.title("OTP-Checker")
+
+num=StringVar()
+otp=StringVar()
+
+f1=Frame(root)
+Label(f1,text="Check Your OTP",font="SegoeUI 30 bold",fg="purple").pack(padx=5,pady=10)
+f1.pack(fill=BOTH)
+
+f2=Frame(root)
+Label(f2,text="Enter Your Number",font="SegoeUI 20 bold",fg="teal").pack(padx=5,pady=5)
+e1=Entry(f2,textvariable=num,font="SegoeUI 14 bold",fg="black",bg="white",relief=SUNKEN,borderwidth=4,justify="center").pack(ipady=5)
+f2.pack(fill=BOTH,padx=5,pady=10)
+
+f3=Frame(root)
+Label(f3,text="Enter OTP",font="SegoeUI 20 bold",fg="teal").pack(padx=5,pady=5)
+e2=Entry(f3,textvariable=otp,font="SegoeUI 14 bold",fg="black",bg="white",relief=SUNKEN,borderwidth=5,justify="center").pack(ipady=5)
+f3.pack(fill=BOTH,padx=5,pady=10)
+
+f4=Frame(root)
+Button(f4,text="Send OTP",command=send,font="SegoeUI 10 bold",fg="purple").pack(padx=20,pady=10,side=LEFT)
+Button(f4,text="Check OTP",command=check,font="SegoeUI 10 bold",fg="purple").pack(padx=40,pady=10,side=LEFT)
+# Button(f4,text="Check OTP",command=sms_send,font="SegoeUI 10 bold",fg="purple").pack(padx=60,pady=10,side=LEFT)
+f4.pack()
+
+root.mainloop()
+
+#index page after check otp 
+from tkinter import *
+import tkinter.messagebox as tsmg
+import random
+import requests
+import json
+
+root=Tk()
+
+rand=random.randint(1,999999)
+
+msg=f"Your One Time Password(OTP) is {rand}"
+
+def nextPage():
+    root.destroy()
+    import index
+
+root.geometry("500x500")
+root.title("OTP-Checker")
+
+num=StringVar()
+otp=StringVar()
+
+f1=Frame(root)
+Label(f1,text="Index Page",font="SegoeUI 30 bold",fg="purple").pack(padx=5,pady=10)
+f1.pack(fill=BOTH)
+
+
+root.mainloop()
+
+---------------------------------------------------------------------------------------------------
+===================================================================================================
+
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 3
+#Aim            : Create a to-do list application with tkinter and save data to text file. 
+
+
+import tkinter
+import random
+from tkinter import messagebox
+
+def update_tasks():
+    clear_listbox()
+    for task in tasks:
+        lb_tasks.insert("end", task)
+    numtask = len(tasks)
+    label_dsp_count['text'] = numtask
+
+
+def clear_listbox():
+    lb_tasks.delete(0, "end")
+
+
+def add_task():
+    label_dsply["text"] = ""
+    Ntask = text_input.get()
+    if Ntask != "":
+        tasks.append(Ntask)
+        update_tasks()
+    else:
+        label_dsply["text"] = "please enter the text"
+    text_input.delete(0, 'end')
+
+
+def delete_all():
+    conf = messagebox.askquestion(
+        'delet all??', 'are you sure to delete all task?')
+    print(conf)
+    if conf.upper() == "YES":
+        global tasks
+        tasks = []
+        update_tasks()
+    else:
+        pass
+
+
+def delete_one():
+    de = lb_tasks.get("active")
+    if de in tasks:
+        tasks.remove(de)
+    update_tasks()
+
+
+def sort_asc():
+    tasks.sort()
+    update_tasks()
+
+
+def sort_dsc():
+    tasks.sort(reverse=True)
+    update_tasks()
+
+
+def random_task():
+    randtask = random.choice(tasks)
+    label_dsply["text"] = randtask
+
+
+def number_task():
+    numtask = len(tasks)
+    label_dsply["text"] = numtask
+
+
+def save_act():
+    savecon = messagebox.askquestion(
+        'Save Confirmation', 'save your progress?')
+    if savecon.upper() == "YES":
+        with open("SaveFile.txt", "w") as filehandle:
+            for listitem in tasks:
+                filehandle.write('%s\n' % listitem)
+    else:
+        pass
+
+
+def load_info():
+    messagebox.showinfo(
+        "info", "this is Todolist V.1.0 \n created by FAIZAR RAHMAN \n Python Project",)
+
+
+def load_act():
+    loadcon = messagebox.askquestion(
+        'Save Confirmation', 'save your progress?')
+    if loadcon.upper() == "YES":
+        tasks.clear()
+
+        with open('SaveFile.txt', 'r') as filereader:
+            for line in filereader:
+                currentask = line
+                tasks.append(currentask)
+            update_tasks()
+
+    else:
+        pass
+
+
+def exit_app():
+    confex = messagebox.askquestion(
+        'Quit Confirmation', 'are you sue you want to quit?')
+    if confex.upper() == "YES":
+        root.destroy()
+    else:
+        pass
+
+
+root = tkinter.Tk()
+# change root background col and ect
+root.configure(bg="white")
+root.title("my to do list")
+root.geometry("400x350")
+# database
+tasks = []
+# tasks = ['tes 1', 'best2', 'dest3']
+
+# GUI (graphical user interface)
+# main root app
+
+
+label_title = tkinter.Label(root, text="Todo List", bg="white")
+label_title.grid(row=0, column=0)
+
+label_dsply = tkinter.Label(root, text="", bg="white")
+label_dsply.grid(row=0, column=1)
+
+label_dsp_count = tkinter.Label(root, text="", bg="white")
+label_dsp_count.grid(row=0, column=3)
+
+text_input = tkinter.Entry(root, width=15)
+text_input.grid(row=1, column=1)
+
+# button section
+text_add_bttn = tkinter.Button(
+    root, text="add todo", bg="white", fg="green", width=15, command=add_task)
+text_add_bttn.grid(row=1, column=0)
+
+delone_bttn = tkinter.Button(
+    root, text="Delete one Task", bg="white", width=15, command=delete_one)
+delone_bttn.grid(row=2, column=0)
+
+delall_bttn = tkinter.Button(
+    root, text="Delete all", bg="white", width=15, command=delete_all)
+delall_bttn.grid(row=3, column=0)
+
+sort_asc = tkinter.Button(root, text="sort (ASC)",
+                          bg="White", width=15, command=sort_asc)
+sort_asc.grid(row=4, column=0)
+
+sort_dsc = tkinter.Button(root, text="sort (DSC)",
+                          bg="White", width=15, command=sort_dsc)
+sort_dsc.grid(row=5, column=0)
+
+random_bttn = tkinter.Button(
+    root, text="random task", bg="White", width=15, command=random_task)
+random_bttn.grid(row=6, column=0)
+
+number_task = tkinter.Button(
+    root, text="Number of Task", bg="white", width=15, command=number_task)
+number_task.grid(row=7, column=0)
+
+exit_bttn = tkinter.Button(root, text="exit app",
+                           bg="white", width=15, command=exit_app)
+exit_bttn.grid(row=8, column=0)
+
+save_button = tkinter.Button(
+    root, text="save TodoList", bg="white", width=15, command=save_act)
+save_button.grid(row=10, column=1)
+
+load_button = tkinter.Button(
+    root, text="Load LastTodolist", bg="white", width=15, command=load_act)
+load_button.grid(row=10, column=0)
+
+info_button = tkinter.Button(
+    root, text="info", bg="white", width=15, command=load_info)
+info_button.grid(row=11, column=0, columnspan=2)
+
+lb_tasks = tkinter.Listbox(root)
+lb_tasks.grid(row=2, column=1, rowspan=7)
+
+
+# main loop
+root.mainloop()
+
+----------------------------------------------------------------------------------------
+============================================================================================
+
+# Name          : Biswal Chandan Ramachandra
+# Div           : A
+# Enroll        : E20110192000310012
+# sem           : 6
+# subject       : python 2
+#Faculty Name   : Yesha maam
+# pc no         : 53
+#Assignment     : 4
+#Aim            : Create a reminder application using tkinter and sqlite database connection.
+
+#Database py file
+---------------------------
+
+import sqlite3
+
+
+class Database:
+    def __init__(self, db):
+        self.con = sqlite3.connect(db)
+        self.cur = self.con.cursor()
+        sql = """
+        CREATE TABLE IF NOT EXISTS reminder(
+            id Integer Primary Key,
+            date text,
+            time text,
+            remadetail text,
+            mobno text,
+            email text,
+            alerttime text    
+        )
+        """
+        self.cur.execute(sql)
+        self.con.commit()
+
+    # Insert Function
+    def insert(self,date, time, remadetail, mobno, email, alerttime):
+        self.cur.execute("insert into reminder values (NULL,?,?,?,?,?,?)",
+                         (date, time, remadetail, mobno, email, alerttime))
+        self.con.commit()
+
+    # Fetch All Data from DB
+    def fetch(self):
+        self.cur.execute("SELECT * from reminder")
+        rows = self.cur.fetchall()
+        # print(rows)
+        return rows
+
+    # Delete a Record in DB
+    def remove(self, id):
+        self.cur.execute("delete from reminder where id=?", (id,))
+        self.con.commit()
+
+    # Update a Record in DB
+    def update(self, id, date, time, remadetail, mobno, email, alerttime):
+        self.cur.execute(
+            "update reminder set id=?, date=?, time=?, remadetail=?, mobno=?, email=?, alerttime=?,",
+            (date, time, remadetail, mobno, email, alerttime))
+        self.con.commit()
+
+--------------------------------------------------------------------------------------------------------
+
+#Reminder py file
+------------------
+from tkinter import *
+from tkinter import ttk
+from tkinter import messagebox
+from db import Database
+
+
+db = Database('reminder.db')
+window = Tk()
+window.title("Reminder Management System")
+window.geometry("1920x1080+0+0")
+window.config(bg="#2c3e50")
+window.state("normal")
+
+
+date = StringVar()
+time = StringVar()
+remadetail = StringVar()
+mobno = StringVar()
+email = StringVar()
+alerttime = StringVar()
+
+# Entries Frame
+entries_frame = Frame(window, bg="#535c68")
+entries_frame.pack(side=TOP, fill=X)
+title = Label(entries_frame, text="Remainder", font=("Calibri", 18, "bold"), bg="#535c68", fg="white")
+title.grid(row=0, columnspan=2, padx=10, pady=20, sticky="w")
+
+lbldate = Label(entries_frame, text="Date", font=("Calibri", 16), bg="#535c68", fg="white")
+lbldate.grid(row=1, column=0, padx=10, pady=10, sticky="w")
+txtdate = Entry(entries_frame, textvariable=date, font=("Calibri", 16), width=30)
+txtdate.grid(row=1, column=1, padx=10, pady=10, sticky="w")
+
+lbltime = Label(entries_frame, text="time", font=("Calibri", 16), bg="#535c68", fg="white")
+lbltime.grid(row=1, column=2, padx=10, pady=10, sticky="w")
+txttime = Entry(entries_frame, textvariable=time, font=("Calibri", 16), width=30)
+txttime.grid(row=1, column=3, padx=10, pady=10, sticky="w")
+
+lblremadetail = Label(entries_frame, text="Remainder_detail", font=("Calibri", 16), bg="#535c68", fg="white")
+lblremadetail.grid(row=2, column=0, padx=10, pady=10, sticky="w")
+txtremadetail = Entry(entries_frame, textvariable=remadetail, font=("Calibri", 16), width=30)
+txtremadetail.grid(row=2, column=1, padx=10, pady=10, sticky="w")
+
+lblmobno = Label(entries_frame, text="Contact no", font=("Calibri", 16), bg="#535c68", fg="white")
+lblmobno.grid(row=2, column=2, padx=10, pady=10, sticky="w")
+txtmobno = Entry(entries_frame, textvariable=mobno, font=("Calibri", 16), width=30)
+txtmobno.grid(row=2, column=3, padx=10, pady=10, sticky="w")
+
+lblEmail = Label(entries_frame, text="Email", font=("Calibri", 16), bg="#535c68", fg="white")
+lblEmail.grid(row=3, column=0, padx=10, pady=10, sticky="w")
+txtEmail = Entry(entries_frame, textvariable=email, font=("Calibri", 16), width=30)
+txtEmail.grid(row=3, column=1, padx=10, pady=10, sticky="w")
+
+lblalerttime = Label(entries_frame, text="AlertTime", font=("Calibri", 16), bg="#535c68", fg="white")
+lblalerttime.grid(row=3, column=2, padx=10, pady=10, sticky="w")
+comboalerttime = ttk.Combobox(entries_frame, font=("Calibri", 16), width=28, textvariable=alerttime, state="readonly")
+comboalerttime['values'] = ("10min","30min", "1hour")
+comboalerttime.grid(row=3, column=3, padx=10, sticky="w")
+
+
+def getData(event):
+    selected_row = tv.focus()
+    data = tv.item(selected_row)
+    global row
+    row = data["values"]
+    #print(row)
+    date.set(row[1])
+    time.set(row[2])
+    remadetail.set(row[3])
+    mobno.set(row[4])
+    email.set(row[5])
+    alerttime.set(row[6])
+
+def dispalyAll():
+    tv.delete(*tv.get_children())
+    for row in db.fetch():
+        tv.insert("", END, values=row)
+
+
+def add_employee():
+    if txtdate.get() == "" or txttime.get() == "" or txtremadetail.get() == "" or txtmobno.get() == "" or txtEmail.get() == "" or comboalerttime.get() == "":
+        messagebox.showerror("Erorr in Input", "Please Fill All the Details")
+        return
+    db.insert(txtdate.get(),txttime.get(), txtremadetail.get() , txtmobno.get() ,txtEmail.get(), comboalerttime.get())
+    messagebox.showinfo("Success", "Record Inserted")
+    clearAll()
+    dispalyAll()
+
+
+
+def update_employee():
+    if txtdate.get() == "" or txttime.get() == "" or txtremadetail.get() == "" or txtmobno.get() == "" or txtEmail.get() == "" or comboalerttime.get()== "":
+        messagebox.showerror("Erorr in Input", "Please Fill All the Details")
+        return
+    db.update(row[0],txtdate.get(), txttime.get(), txtremadetail.get(), txtmobno.get(), txtEmail.get(), comboalerttime.get())
+    messagebox.showinfo("Success", "Record Update")
+    clearAll()
+    dispalyAll()
+
+
+def delete_employee():
+    db.remove(row[0])
+    clearAll()
+    dispalyAll()
+
+
+def clearAll():
+    date.set("")
+    time.set("")
+    remadetail.set("")
+    mobno.set("")
+    email.set("")
+    alerttime.set("")
+    
+
+
+
+btn_frame = Frame(entries_frame, bg="#535c68")
+btn_frame.grid(row=6, column=0, columnspan=4, padx=10, pady=10, sticky="w")
+btnAdd = Button(btn_frame, text="Add Details",command=add_employee, width=15, font=("Calibri", 16, "bold"), fg="white",
+                bg="#16a085", bd=0).grid(row=0, column=0)
+btnEdit = Button(btn_frame,  text="Update Details",command=update_employee, width=15, font=("Calibri", 16, "bold"),
+                 fg="white", bg="#2980b9",
+                 bd=0).grid(row=0, column=1, padx=10)
+btnDelete = Button(btn_frame, text="Delete Details",command=delete_employee, width=15, font=("Calibri", 16, "bold"),
+                   fg="white", bg="#c0392b",
+                   bd=0).grid(row=0, column=2, padx=10)
+btnClear = Button(btn_frame,text="Clear Details",command=clearAll, width=15, font=("Calibri", 16, "bold"), fg="white",
+                  bg="#f39c12",
+                  bd=0).grid(row=0, column=3, padx=10)
+
+
+# Table Frame
+tree_frame = Frame(window, bg="#ecf0f1")
+tree_frame.place(x=0, y=480, width=1980, height=520)
+style = ttk.Style()
+style.configure("mystyle.Treeview", font=('Calibri', 18),
+                rowheight=50)  # Modify the font of the body
+style.configure("mystyle.Treeview.Heading", font=('Calibri', 18))  # Modify the font of the headings
+tv = ttk.Treeview(tree_frame, columns=(1, 2, 3, 4, 5, 6, 7), style="mystyle.Treeview")
+tv.heading("1", text="ID")
+tv.column("1", width=3)
+tv.heading("2", text="Date")
+tv.column("2", width=3)
+tv.heading("3", text="time")
+tv.column("3", width=3)
+tv.heading("4", text="Remainder_detail")
+tv.column("4", width=3)
+tv.heading("5", text="Contact no")
+tv.column("5", width=3)
+tv.heading("6", text="Email")
+tv.column("6", width=3)
+tv.heading("7", text="Alert Time")
+#tv.heading("8", text="Address")
+tv['show'] = 'headings'
+tv.bind("<ButtonRelease-1>",getData)
+tv.pack(fill=X)
+
+dispalyAll()
+
+window.mainloop()
+
+
