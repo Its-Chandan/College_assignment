@@ -1,0 +1,547 @@
+name: Chandan Biswal
+class : tycs sem 6
+div : A
+enrollnment : E20110192000310012
+subject:android
+date: 20th Feb 2023
+pc no:srki_053
+prof : Sagufta mam
+Assignment : --- 5 ---
+Q Implement intent in your “Job App” project
+
+
+
+*--------------MainActivitycities.java----------------*
+
+package com.example.job_app;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity{
+    EditText etName,etAge,etEmail,etPassword;
+    RadioGroup rgRelocate;
+    RadioButton rbtn;
+    CheckBox chkjava,chkphp,chkandroid,chkothers;
+    Spinner spinner1;
+    Button btnSubmit,btnClear,btnNext;
+    TextView details;
+
+    String name,age,email,pass,chk="",rbrelocate;
+
+
+    String arr[]={"--Highest Qualification--","Bachelors","Masters","Others"};
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        etName=findViewById(R.id.etName);
+        etAge=findViewById(R.id.etAge);
+        etEmail=findViewById(R.id.etEmail);
+        etPassword=findViewById(R.id.etPassword);
+        rgRelocate=findViewById(R.id.rgRelocate);
+        chkjava=findViewById(R.id.chkjava);
+        chkphp=findViewById(R.id.chkphp);
+        chkandroid=findViewById(R.id.chkandroid);
+        chkothers=findViewById(R.id.chkothers);
+        btnSubmit=findViewById(R.id.btnSubmit);
+        btnClear=findViewById(R.id.btnClear);
+        btnNext=findViewById(R.id.btnNext);
+        details=findViewById(R.id.details);
+
+        spinner1=findViewById(R.id.spinner1);
+
+        ArrayAdapter<String> adp = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item,arr);
+        spinner1.setAdapter(adp);
+        spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(spinner1.getSelectedItem()!="--Select--"){
+                    Toast.makeText(MainActivity.this,"Qualification: "+spinner1.getSelectedItem(),Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                name=etName.getText().toString();
+                age= etAge.getText().toString();
+                email=etEmail.getText().toString();
+                pass=etPassword.getText().toString();
+                rbtn = findViewById(rgRelocate.getCheckedRadioButtonId());
+                rbrelocate=rbtn.getText().toString();
+
+                if(chkjava.isChecked())
+                {
+                    chk+=chkjava.getText().toString();
+                }
+                if(chkphp.isChecked())
+                {
+                    chk+=chkphp.getText().toString();
+                }
+                if(chkandroid.isChecked())
+                {
+                    chk+=chkandroid.getText().toString();
+                }
+                if(chkothers.isChecked())
+                {
+                    chk+=chkothers.getText().toString();
+                }
+
+                details.setText(name+"\n"+age+"\n"+email+"\n"+pass+"\n"+chk);
+                chk="";
+                rbrelocate="";
+            }
+        });
+
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                details.setText(null);
+                etName.setText(null);
+                etPassword.setText(null);
+                etEmail.setText(null);
+                etAge.setText(null);
+                rgRelocate.clearCheck();
+                chkjava.setChecked(false);
+                chkphp.setChecked(false);
+                chkandroid.setChecked(false);
+                chkothers.setChecked(false);
+            }
+        });
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iExp = new Intent(MainActivity.this,MainActivityCities.class);
+                rbtn=findViewById(rgRelocate.getCheckedRadioButtonId());
+                if(chkjava.isChecked())
+                {
+                    chk+=chkjava.getText().toString();
+                }
+                if(chkphp.isChecked())
+                {
+                    chk+=chkphp.getText().toString();
+                }
+                if(chkandroid.isChecked())
+                {
+                    chk+=chkandroid.getText().toString();
+                }
+                if(chkothers.isChecked())
+                {
+                    chk+=chkothers.getText().toString();
+                }
+
+                String name=etName.getText().toString();
+                int age = Integer.parseInt(etAge.getText().toString());
+                String skills = chk;
+
+                iExp.putExtra("name1",name);
+                iExp.putExtra("age1",age);
+                iExp.putExtra("skills1",skills);
+                startActivity(iExp);
+
+            }
+        });
+
+    }
+
+}
+
+
+*---------------MainActiviycities-------------------*
+
+
+package com.example.job_app;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+
+public class MainActivityCities extends AppCompatActivity {
+    EditText etCity;
+    Button btnAdd,btnEdit;
+
+    public static int index;
+
+    ListView lvCity;
+
+    ArrayList<String> city = new ArrayList<>();
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_cities);
+
+        etCity=findViewById(R.id.etCity);
+        btnAdd=findViewById(R.id.btnAdd);
+        btnEdit=findViewById(R.id.btnEdit);
+        lvCity=findViewById(R.id.lvCity);
+
+        //Fetching data from MainActivity
+        Intent i = new Intent();
+        i = getIntent();
+        String new_name =i.getStringExtra("name1");
+        int new_age = i.getIntExtra("age1",0);
+        String new_skills = i.getStringExtra("skills1");
+
+
+        if(i!=null){
+            if (i.hasExtra("name1") && i.hasExtra("age1") && i.hasExtra("skills1")){
+                Toast.makeText(this, "Name: "+new_name +"Age: "+new_age+"Skills: "+new_skills, Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(this, "Intent is null ", Toast.LENGTH_SHORT).show();
+        }
+
+
+        ArrayAdapter<String> adpCity = new ArrayAdapter<String>(this, android.R.layout.simple_expandable_list_item_1,city);
+        lvCity.setAdapter(adpCity);
+
+        lvCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                index = i;
+                Toast.makeText(MainActivityCities.this, "Selected: ", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        lvCity.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                city.remove(i);
+                adpCity.notifyDataSetChanged();
+                Toast.makeText(MainActivityCities.this, "City Removed", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String cities = etCity.getText().toString();
+                city.add(cities);
+                adpCity.notifyDataSetChanged();
+                Toast.makeText(MainActivityCities.this, "Added: "+cities, Toast.LENGTH_SHORT).show();
+                etCity.setText("");
+            }
+        });
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String cities = etCity.getText().toString();
+                city.set(index,cities);
+                adpCity.notifyDataSetChanged();
+                Toast.makeText(MainActivityCities.this, "Edited: "+cities, Toast.LENGTH_SHORT).show();
+                etCity.setText("");
+
+            }
+        });
+
+
+    }
+}
+
+
+*----------------------maniacitityxml----------------------*
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+ 
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Job Application Form"
+        android:textSize="30sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textStyle="bold"
+        android:textColor="#F1EBEB"
+        android:background="#2A635E"
+        android:fontFamily="monospace"
+        android:textAlignment="center"/>
+
+    <EditText
+        android:id="@+id/etName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Full Name"
+        android:textSize="25sp"
+        android:textColor="#EAE4E4"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="40dp"
+        />
+    <EditText
+        android:id="@+id/etAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        android:textSize="25sp"
+        android:inputType="number"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="40dp"
+        />
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textSize="25sp"
+        android:inputType="textEmailAddress"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="40dp"
+        />
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:textSize="25sp"
+        android:inputType="textPassword"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="40dp"
+        />
+    <TextView
+        android:id="@+id/relocate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Willing to relocate?"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginLeft="40dp"/>
+    <RadioGroup
+        android:id="@+id/rgRelocate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="50dp"
+        android:layout_marginStart="40dp"
+        android:orientation="horizontal"
+        >
+        <RadioButton
+            android:id="@+id/rbnY"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yes"
+            android:textSize="25sp" />
+        <RadioButton
+            android:id="@+id/rbnN"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No"
+            android:layout_marginStart="20dp"
+            android:textSize="25sp"/>
+        <RadioButton
+            android:id="@+id/rbNS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Not Sure"
+            android:layout_marginStart="20dp"
+            android:textSize="25sp"/>
+    </RadioGroup>
+    <TextView
+        android:id="@+id/skills"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Skills"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginStart="40dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <CheckBox
+            android:id="@+id/chkjava"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Java"
+            android:textSize="25sp"
+            />
+        <CheckBox
+            android:id="@+id/chkphp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PHP"
+            android:textSize="25sp"
+            />
+        <CheckBox
+            android:id="@+id/chkandroid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Android"
+            android:textSize="25sp"
+            />
+        <CheckBox
+            android:id="@+id/chkothers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Others"
+            android:textSize="25sp"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
+<!--        <TextView-->
+<!--            android:id="@+id/hq"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Highest Qualification:-"-->
+<!--            android:textSize="25sp"-->
+<!--            android:layout_marginLeft="40dp"-->
+<!--            />-->
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="5dp">
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"/>
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear"
+            android:textSize="21sp"
+            android:layout_marginStart="10dp"/>
+        <Button
+            android:id="@+id/btnNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            android:textSize="21sp"
+            android:layout_marginStart="13dp"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:hint="Details: "
+        android:textStyle="bold"
+        android:textSize="25sp"
+        android:layout_marginLeft="40dp"
+        />
+
+
+</LinearLayout>
+
+*--------------mainactiycitiesxml------------------*
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivityCities"
+    android:orientation="vertical"
+    android:scrollbars="vertical">
+
+    <EditText
+        android:id="@+id/etCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="60dp"
+        android:hint="Enter City"
+        android:textSize="25sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="60dp"/>
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:textSize="21sp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="50dp"/>
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lvCity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@color/purple_200">
+
+    </ListView>
+
+</LinearLayout>
+

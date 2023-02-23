@@ -1,0 +1,321 @@
+
+//faculty name:Meghavi Mam
+//Assignment:3
+
+package com.example.jobapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+
+
+public class MainActivity extends AppCompatActivity {
+
+    TextView name,mobile_no,pswd,email;
+    RadioGroup rggroup;
+    CheckBox java,php,roid,other;
+    TextView res;
+    RadioButton rbtn;
+    String chkValues=" ",hi=" ",rdz;
+    TextView txtDisplay;
+    String arr1[] = {"Bachelors","Masters","Doctorate"};
+    Spinner spiin;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Context context = getApplicationContext();
+        CharSequence text = "Welcome";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        name = findViewById(R.id.name);
+        mobile_no = findViewById(R.id.edmbno);
+        pswd = findViewById(R.id.pswd);
+        email = findViewById(R.id.txtemail);
+        rggroup = findViewById(R.id.rdgroup);
+        java = findViewById(R.id.java);
+        php = findViewById(R.id.php);
+        roid = findViewById(R.id.andr);
+        other = findViewById(R.id.others);
+        res = findViewById(R.id.result);
+        java = findViewById(R.id.java);
+        php = findViewById(R.id.php);
+        other = findViewById(R.id.others);
+        txtDisplay = findViewById(R.id.result);
+        spiin=findViewById(R.id.spin);
+        ArrayAdapter<String> arrd = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item,arr1);
+        spiin.setAdapter(arrd);
+
+
+    }
+
+    public void oncheckboxclicked1(View v){
+
+        int selectedid = rggroup.getCheckedRadioButtonId();
+        rbtn = findViewById(selectedid);
+        hi=rbtn.getText().toString();
+
+        rdz=spiin.getSelectedItem().toString();
+
+        if(java.isChecked()){
+            chkValues += java.getText().toString();
+        }
+
+
+        if(php.isChecked()){
+            chkValues += php.getText().toString();
+        }
+
+        if(roid.isChecked()){
+            chkValues += roid.getText().toString();
+        }
+        if(other.isChecked()){
+            chkValues += other.getText().toString();
+        }
+
+        txtDisplay.setText("Willing  to relocate: "+hi+chkValues+rdz);
+
+        //Toast.makeText(getApplicationContext(), "Checked:\n"+chkValues+hi, Toast.LENGTH_SHORT).show();
+    }
+
+
+}
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_ja"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/alfa_slab_one"
+            android:text="Job application form"
+            android:textColorLink="#0D4528" />
+
+
+        <EditText
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_ja"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:ems="10"
+            android:hint="Enter Full Name"
+            android:minHeight="48dp"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/edmbno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:ems="10"
+            android:hint="Mobile Number"
+            android:minHeight="48dp"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/txtemail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edmbno"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:ems="10"
+            android:hint=" Email"
+            android:minHeight="48dp"
+            android:text="" />
+
+        <EditText
+            android:id="@+id/pswd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtemail"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:ems="10"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:minHeight="48dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/relocate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:layout_below="@+id/pswd"
+            android:ems="10"
+            android:fontFamily="@font/alfa_slab_one"
+            android:text="Want to Relocate"
+            android:textColorLink="#0D4528" />
+
+        <RadioGroup
+            android:id="@+id/rdgroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relocate"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/yes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:ems="6"
+                android:text="yes" />
+
+            <RadioButton
+                android:id="@+id/no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:ems="6"
+                android:text="No" />
+
+            <RadioButton
+                android:id="@+id/notsure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:ems="6"
+                android:text="Not Sure" />
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/empskills"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rdgroup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp"
+            android:ems="10"
+            android:fontFamily="@font/alfa_slab_one"
+            android:text="Employee Skills"
+            android:textColorLink="#0D4528" />
+
+        <CheckBox
+            android:id="@+id/java"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empskills"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="4dp"
+            android:ems="5"
+            android:text="java" />
+
+        <CheckBox
+            android:id="@+id/php"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/empskills"
+            android:layout_toRightOf="@+id/java"
+            android:layout_marginTop="4dp"
+            android:ems="5"
+            android:text="php" />
+
+        <CheckBox
+            android:id="@+id/andr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empskills"
+
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@+id/php"
+            android:ems="5"
+            android:text="Android" />
+
+        <CheckBox
+            android:id="@+id/others"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/empskills"
+
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@+id/andr"
+            android:ems="5"
+            android:text="Others" />
+
+        <Button
+            android:id="@+id/reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spin"
+            android:layout_marginLeft="30dp"
+            android:text="Reset" />
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spin"
+            android:layout_marginLeft="30dp"
+            android:layout_toRightOf="@+id/reset"
+            android:onClick="oncheckboxclicked1"
+            android:text="Submit" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Result"
+
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/submit"/>
+
+        <TextView
+            android:id="@+id/spr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/php"
+            android:layout_centerHorizontal="true"
+            android:text="Qualification" />
+
+        <Spinner
+            android:id="@+id/spin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/spr"
+            android:layout_centerHorizontal="true"
+            />
+    </RelativeLayout>
+
+
+
+</ScrollView>
